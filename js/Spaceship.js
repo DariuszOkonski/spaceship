@@ -14,7 +14,11 @@ export class Spaceship {
 
     #setPosition() {
         this.element.style.bottom = '0px';
-        this.element.style.left = `${window.innerWidth / 2 - this.element.offsetLeft - this.element.offsetWidth / 2}px`;
+        this.element.style.left = `${window.innerWidth / 2 - this.#getPosition()}px`;
+    }
+
+    #getPosition() {
+        return this.element.offsetLeft + this.element.offsetWidth / 2;
     }
 
     #eventListeners() {
@@ -47,10 +51,11 @@ export class Spaceship {
     }
 
     #whatKey() {
-        if(this.#leftArrow) {
+        if(this.#leftArrow && this.#getPosition() > 0) {
             this.element.style.left = `${parseInt(this.element.style.left, 10) - this.#modifier}px`;
         }
-        if(this.#rightArrow) {
+        
+        if(this.#rightArrow && this.#getPosition() < window.innerWidth) {
             this.element.style.left = `${parseInt(this.element.style.left, 10) + this.#modifier}px`;
         }
     }
