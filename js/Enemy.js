@@ -4,7 +4,8 @@ export class Enemy {
         this.element = document.createElement('div');
         this.enemyClass = enemyClass;
         // this.intervalTime = Math.floor(Math.random() * 100) + 10;
-        this.intervalTime = intervalTime
+        this.intervalTime = (enemyClass === 'enemy--big') ? intervalTime * 2 : intervalTime;
+        this.lives = (enemyClass === 'enemy--big') ? 3 : 1
     }
     
     init() {

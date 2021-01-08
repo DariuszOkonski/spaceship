@@ -22,8 +22,17 @@ class Game {
         this.#checkPositionInterval = setInterval(() => this.#checkPosition(), 1)
     }
 
+    #randomNewEnemy() {
+        const randomNumber = Math.floor(Math.random() * 5) + 1;
+
+        if(randomNumber == 1)
+            return 'enemy--big';
+        else
+            return 'enemy';
+    }
+
     #createNewEnemy() {
-        const enemy = new Enemy(this.#htmlElements.container, this.#enemiesInterval ,'enemy');
+        const enemy = new Enemy(this.#htmlElements.container, this.#enemiesInterval , this.#randomNewEnemy());
         enemy.init();
         this.#enemies.push(enemy);
     }
@@ -40,6 +49,7 @@ class Game {
             if(enemyPosition.top > window.innerHeight) {
                 enemy.remove();
                 enemiesArr.splice(enemyIndex, 1);
+                console.log('TODO - lost live')
             }
         });
         
