@@ -8,3 +8,20 @@ body {
     font-family: 'Lato', sans-serif;
     box-sizing: border-box;
 }
+
+.container {
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    position: relative;
+}
+
+.information {
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    font-size: 32px;
+    z-index: 2;
+    position: relative;
+}
