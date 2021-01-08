@@ -1,3 +1,3 @@
-### SPACESHIP
+# SPACESHIP GAME
 
-## OOP JAVASCRIPT
+### OOP in JavaScript
