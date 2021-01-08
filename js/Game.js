@@ -7,6 +7,7 @@ class Game {
     }
     #ship = new Spaceship(this.#htmlElements.spaceship, this.#htmlElements.container)
     #enemies = [];
+    #enemiesInterval = null;
     #checkPositionInterval = null;
     #createEnemyInterval = null;
 
@@ -16,34 +17,49 @@ class Game {
     }
 
     #newGame() {
+        this.#enemiesInterval = 30;
         this.#createEnemyInterval = setInterval(() => this.#createNewEnemy(), 1000)
         this.#checkPositionInterval = setInterval(() => this.#checkPosition(), 1)
     }
 
     #createNewEnemy() {
-        const enemy = new Enemy(this.#htmlElements.container, 'enemy');
+        const enemy = new Enemy(this.#htmlElements.container, this.#enemiesInterval ,'enemy');
         enemy.init();
         this.#enemies.push(enemy);
     }
 
     #checkPosition() {
+        this.#enemies.forEach((enemy, enemyIndex, enemiesArr) => {
+            const enemyPosition = {
+                top: enemy.element.offsetTop,
+                right: enemy.element.offsetLeft + enemy.element.offsetWidth,
+                bottom: enemy.element.offsetTop + enemy.element.offsetHeight,
+                left: enemy.element.offsetLeft
+            }
+
+            if(enemyPosition.top > window.innerHeight) {
+                enemy.remove();
+                enemiesArr.splice(enemyIndex, 1);
+            }
+        });
+        
         this.#ship.missiles.forEach((missile, missileIndex, missileArr) => {
             const missilePosition = {
                 top: missile.element.offsetTop,
                 right: missile.element.offsetLeft + missile.element.offsetWidth,
                 bottom: missile.element.offsetTop + missile.element.offsetHeight,
                 left: missile.element.offsetLeft
-            }
+            };
 
             if(missilePosition.bottom < 0) {
                 missile.remove();
-                missileArr.splice(missileIndex, 1)
-            }
-        })
+                missileArr.splice(missileIndex, 1);
+            };
+        });
     }
 }
 
 window.onload = function() {
     const game = new Game();
-    game.init()
+    game.init();
 }
