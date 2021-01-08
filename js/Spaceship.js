@@ -1,4 +1,5 @@
 export class Spaceship {
+    missiles = [];
     #modifier = 5;
     #leftArrow = false;
     #rightArrow = false;
@@ -35,6 +36,9 @@ export class Spaceship {
 
         window.addEventListener('keyup', ({keyCode}) => {
             switch(keyCode) {
+                case 32:
+                    this.#shot()
+                    break;
                 case 37:
                     this.#leftArrow = false;
                     break;
@@ -54,9 +58,13 @@ export class Spaceship {
         if(this.#leftArrow && this.#getPosition() > 0) {
             this.element.style.left = `${parseInt(this.element.style.left, 10) - this.#modifier}px`;
         }
-        
+
         if(this.#rightArrow && this.#getPosition() < window.innerWidth) {
             this.element.style.left = `${parseInt(this.element.style.left, 10) + this.#modifier}px`;
         }
+    }
+
+    #shot() {
+        // const missile = 
     }
 }
