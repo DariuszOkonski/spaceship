@@ -1,4 +1,7 @@
 export class Spaceship {
+    #modifier = 5;
+    #leftArrow = false;
+    #rightArrow = false;
     constructor(element) {
         this.element = element;
     }
@@ -6,6 +9,7 @@ export class Spaceship {
     init() {
         this.#setPosition();
         this.#eventListeners();
+        this.#gameLoop();
     }
 
     #setPosition() {
@@ -17,12 +21,37 @@ export class Spaceship {
         window.addEventListener('keydown', ({keyCode}) => {
             switch(keyCode) {
                 case 37:
-                    this.element.style.left = `${parseInt(this.element.style.left, 10) - 10}px`;
+                    this.#leftArrow = true;
                     break;
                 case 39:
-                    this.element.style.left = `${parseInt(this.element.style.left, 10) + 10}px`;
+                    this.#rightArrow = true;
                     break;
             }
         })
+
+        window.addEventListener('keyup', ({keyCode}) => {
+            switch(keyCode) {
+                case 37:
+                    this.#leftArrow = false;
+                    break;
+                case 39:
+                    this.#rightArrow = false;
+                    break;
+            }
+        })
+    }
+
+    #gameLoop = () => {
+        this.#whatKey()
+        requestAnimationFrame(this.#gameLoop)
+    }
+
+    #whatKey() {
+        if(this.#leftArrow) {
+            this.element.style.left = `${parseInt(this.element.style.left, 10) - this.#modifier}px`;
+        }
+        if(this.#rightArrow) {
+            this.element.style.left = `${parseInt(this.element.style.left, 10) + this.#modifier}px`;
+        }
     }
 }
