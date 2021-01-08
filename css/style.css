@@ -80,6 +80,7 @@ body {
     height: var(--size-unit);
     background-image: url('../images/ship.png');
     animation: move-8-units-X var(--ships-animation-time) steps(8) infinite;
+    position: fixed;
 }
 
 .enemy {
