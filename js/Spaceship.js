@@ -1,10 +1,13 @@
+import { Missile } from './Missile.js';
 export class Spaceship {
     missiles = [];
     #modifier = 5;
     #leftArrow = false;
     #rightArrow = false;
-    constructor(element) {
+
+    constructor(element, container) {
         this.element = element;
+        this.container = container;
     }
 
     init() {
@@ -65,6 +68,8 @@ export class Spaceship {
     }
 
     #shot() {
-        // const missile = 
+        const missile = new Missile(this.#getPosition(), this.element.offsetTop, this.container) 
+        missile.init();
+        this.missiles.push(missile)
     }
 }
