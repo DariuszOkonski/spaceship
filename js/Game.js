@@ -88,6 +88,10 @@ class Game {
 
     #updateScore() {
         this.#score++;
+        if(!(this.#score % 5 == 0)) {
+            this.#enemiesInterval--;
+        }
+        
         this.#updateScoreText();
     }
 
