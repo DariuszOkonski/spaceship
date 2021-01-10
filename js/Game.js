@@ -5,7 +5,10 @@ class Game {
         spaceship: document.querySelector('[data-spaceship]'),
         container: document.querySelector('[data-container]'),
         score: document.querySelector('[data-score]'),
-        lives: document.querySelector('[data-lives]')
+        lives: document.querySelector('[data-lives]'),
+        modal: document.querySelector('[data-modal]'),
+        scoreInfo: document.querySelector('[data-score-info]'),
+        button: document.querySelector('[data-button]')
     }
     #ship = new Spaceship(this.#htmlElements.spaceship, this.#htmlElements.container)
     #enemies = [];
@@ -26,6 +29,15 @@ class Game {
         this.#score = 0;
         this.#createEnemyInterval = setInterval(() => this.#createNewEnemy(), 1000)
         this.#checkPositionInterval = setInterval(() => this.#checkPosition(), 1)
+    }
+
+    #endGame() {
+        this.#htmlElements.modal.classList.remove('hide')
+        this.#htmlElements.scoreInfo.textContent = `You loose! Your score is ${this.#score}`
+        this.#enemies.forEach((enemy) => enemy.explode())
+        this.#enemies.length = 0;
+        clearInterval(this.#createEnemyInterval);
+        clearInterval(this.#checkPositionInterval)
     }
 
     #randomNewEnemy() {
@@ -106,6 +118,10 @@ class Game {
         setTimeout(() => {
             this.#htmlElements.container.classList.remove('hit')
         }, 100);
+
+        if(!this.#lives) {
+            this.#endGame()
+        }
     }
 
     #updateLivesText() {
