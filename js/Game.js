@@ -3,10 +3,14 @@ import { Enemy } from './Enemy.js';
 class Game {
     #htmlElements = {
         spaceship: document.querySelector('[data-spaceship]'),
-        container: document.querySelector('[data-container]')
+        container: document.querySelector('[data-container]'),
+        score: document.querySelector('[data-score]'),
+        lives: document.querySelector('[data-lives]')
     }
     #ship = new Spaceship(this.#htmlElements.spaceship, this.#htmlElements.container)
     #enemies = [];
+    #lives = 0;
+    #score = 0;
     #enemiesInterval = null;
     #checkPositionInterval = null;
     #createEnemyInterval = null;
