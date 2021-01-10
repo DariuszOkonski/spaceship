@@ -32,8 +32,10 @@ class Game {
     }
 
     #createNewEnemy() {
-        const enemy = new Enemy(this.#htmlElements.container, this.#enemiesInterval , this.#randomNewEnemy());
-        enemy.init();
+        const enemyClass = this.#randomNewEnemy();
+        const explosionClass = (enemyClass === 'enemy') ? 'explosion' : 'explosion--big'
+        const enemy = new Enemy(this.#htmlElements.container, this.#enemiesInterval , enemyClass, explosionClass);
+        enemy.init();     
         this.#enemies.push(enemy);
     }
 

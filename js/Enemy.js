@@ -1,8 +1,9 @@
 export class Enemy {
-    constructor(container, intervalTime, enemyClass) {
+    constructor(container, intervalTime, enemyClass, explosionClass) {
         this.container = container;
         this.element = document.createElement('div');
         this.enemyClass = enemyClass;
+        this.explosionClass = explosionClass;
         // this.intervalTime = Math.floor(Math.random() * 100) + 10;
         this.intervalTime = (enemyClass === 'enemy--big') ? intervalTime * 2 : intervalTime;
         this.lives = (enemyClass === 'enemy--big') ? 3 : 1
