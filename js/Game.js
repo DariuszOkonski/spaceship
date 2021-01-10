@@ -49,7 +49,7 @@ class Game {
             }
 
             if(enemyPosition.top > window.innerHeight) {
-                enemy.remove();
+                enemy.explode();
                 enemiesArr.splice(enemyIndex, 1);
                 console.log('TODO - lost live')
             }
@@ -62,8 +62,10 @@ class Game {
                 };
     
                 if(missilePosition.bottom >= enemyPosition.top && missilePosition.top <= enemyPosition.bottom && missilePosition.right >= enemyPosition.left && missilePosition.left <= enemyPosition.right) {
-                    enemy.remove();
-                    enemiesArr.splice(enemyIndex, 1);
+                    enemy.hit();
+                    if(!enemy.lives) {
+                        enemiesArr.splice(enemyIndex, 1);
+                    }                    
                     missile.remove();
                     missileArr.splice(missileIndex, 1);
                 }

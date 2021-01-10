@@ -33,8 +33,21 @@ export class Enemy {
         this.element.style.top = `${this.element.offsetTop + 1}px`;
     }
 
-    remove() {
-        clearInterval(this.intervalTime);
-        this.element.remove()
+    hit() {
+        this.lives--
+        if(!this.lives) {
+            this.explode()
+        }
     }
+    
+    explode() {
+        this.element.classList.remove(this.enemyClass);
+        this.element.classList.add(this.explosionClass);
+        clearInterval(this.intervalTime);
+        const animationTime = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--explosions-animation-time'), 10);
+        setTimeout(() => {
+            this.element.remove();
+        }, animationTime); 
+    }
+
 }
