@@ -9,8 +9,8 @@ class Game {
     }
     #ship = new Spaceship(this.#htmlElements.spaceship, this.#htmlElements.container)
     #enemies = [];
-    #lives = 0;
-    #score = 0;
+    #lives = null;
+    #score = null;
     #enemiesInterval = null;
     #checkPositionInterval = null;
     #createEnemyInterval = null;
@@ -22,6 +22,8 @@ class Game {
 
     #newGame() {
         this.#enemiesInterval = 30;
+        this.#lives = 3;
+        this.#score = 0;
         this.#createEnemyInterval = setInterval(() => this.#createNewEnemy(), 1000)
         this.#checkPositionInterval = setInterval(() => this.#checkPosition(), 1)
     }
@@ -55,7 +57,7 @@ class Game {
             if(enemyPosition.top > window.innerHeight) {
                 enemy.explode();
                 enemiesArr.splice(enemyIndex, 1);
-                console.log('TODO - lost live')
+                this.#updateLives();
             }
             this.#ship.missiles.forEach((missile, missileIndex, missileArr) => {
                 const missilePosition = {
@@ -72,6 +74,7 @@ class Game {
                     }                    
                     missile.remove();
                     missileArr.splice(missileIndex, 1);
+                    this.#updateScore();
                 }
 
                 if(missilePosition.bottom < 0) {
@@ -81,6 +84,24 @@ class Game {
             });
         });
         
+    }
+
+    #updateScore() {
+        this.#score++;
+        this.#updateScoreText();
+    }
+
+    #updateScoreText() {
+        this.#htmlElements.score.textContent = `Score: ${this.#score}`;
+    }
+
+    #updateLives() {
+        this.#lives--;
+        this.#updateLivesText();
+    }
+
+    #updateLivesText() {
+        this.#htmlElements.lives.textContent = `Lives: ${this.#lives}`
     }
 }
 
