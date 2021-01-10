@@ -1,5 +1,6 @@
 :root {
     --primary-color: #09fcfd;
+    --secondary-color: #510303;
     --size-unit: 64px;
     --ships-animation-time: 200ms;
     --explosions-animation-time: 600ms;
@@ -23,6 +24,11 @@ body {
     position: relative;
     background-image: url('../Spaceship_art_pack/Background/background.jpg');
     overflow: hidden;
+}
+
+.container.hit {
+    background-image: none;
+    background-color: var(--secondary-color);
 }
 
 .information {
@@ -82,6 +88,7 @@ body {
     background-image: url('../images/ship.png');
     animation: move-8-units-X var(--ships-animation-time) steps(8) infinite;
     position: fixed;
+    z-index: 4;
 }
 
 .enemy {
@@ -90,7 +97,7 @@ body {
     background-image: url('../images/enemy.png');
     animation: move-5-units-X var(--ships-animation-time) steps(5) infinite;
     position: fixed;
-    z-index: 2;
+    z-index: 3;
 }
 
 .enemy--big {
@@ -99,7 +106,7 @@ body {
     background-image: url('../images/enemy-big.png');
     animation: move-16-units-X var(--ships-animation-time) steps(8) infinite;
     position: fixed;
-    z-index: 1;
+    z-index: 2;
 }
 
 .explosion {

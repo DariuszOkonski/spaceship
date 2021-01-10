@@ -102,6 +102,10 @@ class Game {
     #updateLives() {
         this.#lives--;
         this.#updateLivesText();
+        this.#htmlElements.container.classList.add('hit')
+        setTimeout(() => {
+            this.#htmlElements.container.classList.remove('hit')
+        }, 100);
     }
 
     #updateLivesText() {
