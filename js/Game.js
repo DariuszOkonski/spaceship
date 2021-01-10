@@ -21,12 +21,20 @@ class Game {
     init() {
         this.#ship.init();
         this.#newGame();
+        this.#htmlElements.button.addEventListener('click', () => {
+            this.#newGame()
+        })
     }
 
     #newGame() {
+        this.#htmlElements.modal.classList.add('hide');
         this.#enemiesInterval = 30;
         this.#lives = 3;
         this.#score = 0;
+        this.#updateLivesText();
+        this.#updateScoreText();
+        this.#ship.element.style.left = '0px'
+        this.#ship.setPosition();
         this.#createEnemyInterval = setInterval(() => this.#createNewEnemy(), 1000)
         this.#checkPositionInterval = setInterval(() => this.#checkPosition(), 1)
     }
